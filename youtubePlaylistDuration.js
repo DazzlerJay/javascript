@@ -3,11 +3,6 @@
  * */
 
 const getPlaylistDuration = () => {
-  document
-    .querySelectorAll("ytd-playlist-panel-video-renderer")[0]
-    .querySelectorAll(".ytd-thumbnail-overlay-time-status-renderer")[1]
-    .ariaLabel;
-
   const time = {
     hour: 0,
     minute: 0,
