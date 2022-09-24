@@ -10,6 +10,17 @@ const getPlaylistDuration = () => {
     second: 0,
   };
 
+  // setting raw time duration by scrapping the playlist
+  setRawDuration(time);
+
+  // translate the raw time duration into a readable format
+  translateDuration(time);
+
+  // display playlist time duration
+  displayDuration(time);
+};
+
+const setRawDuration = (time) => {
   // singular as it covers both string cases: 0. hour 1. hours
   const HOUR = "hour";
   const MINUTE = "minute";
@@ -28,20 +39,28 @@ const getPlaylistDuration = () => {
       else if (label.includes(SECOND)) time[SECOND] += parseInt(value);
     });
   });
+}
 
+const translateDuration = (time) => {
   // seconds to minutes
-  time.minute += Math.floor(time.second / 60)
-  time.second = (time.second % 60)
+  time.minute += Math.floor(time.second / 60);
+  time.second = (time.second % 60);
 
   // minutes to hours
-  time.hour += Math.floor(time.minute / 60)
-  time.minute = (time.minute % 60)
+  time.hour += Math.floor(time.minute / 60);
+  time.minute = (time.minute % 60);
 
   // hours to days
-  time.day += Math.floor(time.hour / 24)
-  time.hour = (time.hour % 24)  
+  time.day += Math.floor(time.hour / 24);
+  time.hour = (time.hour % 24);
+}
 
-  console.log(time);
-};
+const displayDuration = (time) => {
+  Object.keys(time).forEach(metric => {
+    time[metric] = `${time[metric]} ${time[metric] > 1 ? `${metric}s` : metric}`
+  })
+
+  alert(`Playlist: Total time duration: ${Object.keys(time).map((metric) => time[metric]).join(', ')}`);
+}
 
 getPlaylistDuration();
