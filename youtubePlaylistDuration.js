@@ -1,9 +1,10 @@
 /**
- * returns time duration of playlist in hours, minutes and seconds format
+ * returns time duration of playlist in days, hours, minutes and seconds format
  * */
 
 const getPlaylistDuration = () => {
   const time = {
+    day: 0,
     hour: 0,
     minute: 0,
     second: 0,
@@ -28,8 +29,18 @@ const getPlaylistDuration = () => {
     });
   });
 
-  // TODO: Convert into standard time format
-  // Eg: hours: 0, minutes: 75, seconds: 65 to hours: 1 , minutes: 16, seconds: 5
+  // seconds to minutes
+  time.minute += Math.floor(time.second / 60)
+  time.second = (time.second % 60)
+
+  // minutes to hours
+  time.hour += Math.floor(time.minute / 60)
+  time.minute = (time.minute % 60)
+
+  // hours to days
+  time.day += Math.floor(time.hour / 24)
+  time.hour = (time.hour % 24)  
+
   console.log(time);
 };
 
